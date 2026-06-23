@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { generateStoryContinuation, type Message } from "@/lib/0g-compute";
 import { saveStoryToStorage, loadStoryFromStorage } from "@/lib/0g-storage";
+import SaveReceiptModal from "@/components/SaveReceiptModal";
 
 export default function Home() {
   const [prompt, setPrompt] = useState("");
@@ -13,6 +14,7 @@ export default function Home() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveFeedback, setSaveFeedback] = useState("");
   const [savedHashData, setSavedHashData] = useState<{hash: string, url: string} | null>(null);
+  const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
   
   const [loadHash, setLoadHash] = useState("");
   const [isLoadingStory, setIsLoadingStory] = useState(false);
@@ -67,6 +69,7 @@ export default function Home() {
     setIsSaving(false);
     setSaveFeedback("");
     setSavedHashData(null);
+    setIsReceiptModalOpen(false);
     setLoadHash("");
     setLoadError("");
   };
@@ -99,17 +102,13 @@ export default function Home() {
     
     try {
       const result = await saveStoryToStorage(prompt, messages);
-      setSaveFeedback(`Saved! Root Hash: `);
       setSavedHashData({ hash: result.rootHash, url: result.txHash });
+      setSaveFeedback("");
+      setIsReceiptModalOpen(true);
     } catch (error: any) {
       setSaveFeedback(`Save failed: ${error.message}`);
     } finally {
       setIsSaving(false);
-      // Clear feedback after 10 seconds if successful, keep if error
-      setTimeout(() => {
-        setSaveFeedback("");
-        setSavedHashData(null);
-      }, 10000);
     }
   };
 
@@ -297,17 +296,6 @@ export default function Home() {
               {saveFeedback && (
                 <span className={`text-xs font-medium break-all max-w-[150px] sm:max-w-xs ${saveFeedback.includes("failed") ? "text-red-400" : "text-[#e8842c]"}`}>
                   {saveFeedback}
-                  {savedHashData && (
-                    <a 
-                      href={`https://scan-testnet.0g.ai/tx/${savedHashData.url}`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-orange-300 hover:text-white underline underline-offset-2 ml-1"
-                      title="View on 0G Explorer"
-                    >
-                      {savedHashData.hash}
-                    </a>
-                  )}
                 </span>
               )}
               
@@ -445,6 +433,12 @@ export default function Home() {
           </div>
         </main>
       )}
+
+      <SaveReceiptModal 
+        isOpen={isReceiptModalOpen}
+        onClose={() => setIsReceiptModalOpen(false)}
+        hashData={savedHashData}
+      />
     </div>
   );
 }
