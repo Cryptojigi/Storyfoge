@@ -24,11 +24,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className="square-grid min-h-screen flex flex-col bg-[#0d0f12] text-zinc-200">
+        {/* Upper Banner */}
+        <nav className="flex items-center justify-between px-4 sm:px-8 py-5 z-50 relative bg-transparent w-full">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-400">Storyfoge</span>
+            <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-white/[0.02] border border-white/[0.05]">
+              <div className="h-1.5 w-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse" />
+              <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-zinc-400">Synced</span>
+            </div>
+          </div>
+          <div>
+            {/* Future components (e.g., wallet) */}
+          </div>
+        </nav>
+        
+        <main className="flex-1 flex flex-col relative z-0">
+          {children}
+        </main>
+
+        {/* Lower Banner */}
+        <footer className="flex flex-col sm:flex-row items-center justify-center px-4 sm:px-8 py-6 text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-500 z-50 relative bg-transparent gap-4 sm:gap-8 w-full">
+          <a href="#" className="hover:text-zinc-300 transition-colors">Technical Docs</a>
+          <a href="#" className="hover:text-zinc-300 transition-colors">Privacy Node</a>
+        </footer>
+      </body>
     </html>
   );
 }

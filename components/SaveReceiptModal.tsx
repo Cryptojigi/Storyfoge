@@ -34,7 +34,7 @@ export default function SaveReceiptModal({ isOpen, onClose, hashData }: SaveRece
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 animate-in fade-in duration-300">
-      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/[0.08] bg-[#1c1f26] p-6 shadow-2xl animate-in zoom-in-95 duration-300">
+      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/[0.08] bg-[#16181d] p-6 shadow-2xl animate-in zoom-in-95 duration-300">
         
         {/* Glow accent */}
         <div 

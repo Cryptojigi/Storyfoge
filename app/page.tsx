@@ -128,20 +128,11 @@ export default function Home() {
 
   return (
     <div
-      className={`diamond-grid relative flex flex-1 flex-col items-center overflow-hidden bg-[#1a1d23] px-4 selection:bg-orange-500/30 transition-all duration-500 min-h-screen ${
+      className={`relative flex flex-1 flex-col items-center bg-transparent px-4 selection:bg-orange-500/30 transition-all duration-500 w-full ${
         isSessionActive ? "py-8" : "justify-center py-20"
       }`}
     >
-      {/* Ambient orange glow — large radial wash behind icon area */}
-      <div
-        aria-hidden
-        className="glow-pulse pointer-events-none absolute top-[22%] left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl transition-opacity duration-700"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(232,132,44,0.22) 0%, rgba(232,132,44,0.06) 40%, transparent 65%)",
-          opacity: isSessionActive ? 0.4 : 1,
-        }}
-      />
+
 
       {!isSessionActive ? (
         /* ── LANDING VIEW ── */
@@ -195,7 +186,7 @@ export default function Home() {
                 placeholder="Paste 0x... Root Hash to load existing story"
                 value={loadHash}
                 onChange={(e) => setLoadHash(e.target.value)}
-                className="flex-1 rounded-xl border border-white/[0.06] bg-[#1c1f26] px-5 py-3 text-sm text-zinc-100 outline-none placeholder:text-zinc-600 focus:border-[#e8842c]/50 transition-colors shadow-inner"
+                className="flex-1 rounded-xl border border-white/[0.06] bg-[#16181d] px-5 py-3 text-sm text-zinc-100 outline-none placeholder:text-zinc-600 focus:border-[#e8842c]/50 transition-colors shadow-inner"
               />
               <button
                 onClick={handleLoadStory}
@@ -223,7 +214,7 @@ export default function Home() {
           </div>
 
           {/* Prompt area */}
-          <div className="textarea-wrapper w-full rounded-2xl border border-white/[0.06] bg-[#1c1f26] p-1 shadow-2xl shadow-black/40 transition-all duration-300">
+          <div className="textarea-wrapper w-full rounded-2xl border border-white/[0.06] bg-[#16181d] p-1 shadow-2xl shadow-black/40 transition-all duration-300">
             <textarea
               id="story-prompt"
               rows={4}
@@ -265,10 +256,10 @@ export default function Home() {
         </main>
       ) : (
         /* ── STORY SESSION VIEW ── */
-        <main className="relative z-10 flex w-full max-w-4xl flex-col h-[90vh] animate-in fade-in slide-in-from-bottom-8 duration-500">
+        <main className="relative z-10 flex w-full max-w-6xl flex-col h-[90vh] animate-in fade-in slide-in-from-bottom-8 duration-500">
           {/* Header */}
-          <header className="flex items-center justify-between border-b border-white/[0.08] pb-4 mb-6">
-            <div className="flex items-center gap-4">
+          <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-white/[0.08] pb-4 mb-6 gap-4 sm:gap-0">
+            <div className="flex items-center gap-4 w-full sm:w-auto">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#f5a623] to-[#c86415] shadow-lg shadow-orange-600/20">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -292,53 +283,55 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto justify-start sm:justify-end">
               {saveFeedback && (
-                <span className={`text-xs font-medium break-all max-w-[150px] sm:max-w-xs ${saveFeedback.includes("failed") ? "text-red-400" : "text-[#e8842c]"}`}>
+                <span className={`text-xs font-medium break-all w-full sm:w-auto text-center sm:text-left ${saveFeedback.includes("failed") ? "text-red-400" : "text-[#e8842c]"}`}>
                   {saveFeedback}
                 </span>
               )}
               
-              {messages.length > 1 && (
-                <button
-                  onClick={handleSaveStory}
-                  disabled={isSaving}
-                  className="flex items-center gap-2 rounded-lg border border-[#e8842c]/30 bg-[#e8842c]/10 px-4 py-2 text-sm font-medium text-[#f5a623] transition-colors hover:bg-[#e8842c]/20 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSaving ? (
-                    <div className="h-4 w-4 rounded-full border-2 border-white/20 border-t-white animate-spin" />
-                  ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
-                      <path fillRule="evenodd" d="M10 1c3.866 0 7 1.79 7 4s-3.134 4-7 4-7-1.79-7-4 3.134-4 7-4Zm5.694 8.13c.464-.264.91-.583 1.306-.952V10c0 2.21-3.134 4-7 4s-7-1.79-7-4V8.178c.396.37.842.688 1.306.953C5.838 10.006 7.854 10.5 10 10.5s4.162-.494 5.694-1.37ZM3 13.179V15c0 2.21 3.134 4 7 4s7-1.79 7-4v-1.822c-.396.37-.842.688-1.306.953-1.532.875-3.548 1.369-5.694 1.369s-4.162-.494-5.694-1.37A7.009 7.009 0 0 1 3 13.179Z" clipRule="evenodd" />
-                    </svg>
-                  )}
-                  Save Story
-                </button>
-              )}
+              <div className="flex w-full sm:w-auto gap-3">
+                {messages.length > 1 && (
+                  <button
+                    onClick={handleSaveStory}
+                    disabled={isSaving}
+                    className="flex flex-1 sm:flex-none items-center justify-center gap-2 rounded-lg border border-[#e8842c]/30 bg-[#e8842c]/10 px-4 py-2 text-sm font-medium text-[#f5a623] transition-colors hover:bg-[#e8842c]/20 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSaving ? (
+                      <div className="h-4 w-4 rounded-full border-2 border-white/20 border-t-white animate-spin" />
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+                        <path fillRule="evenodd" d="M10 1c3.866 0 7 1.79 7 4s-3.134 4-7 4-7-1.79-7-4 3.134-4 7-4Zm5.694 8.13c.464-.264.91-.583 1.306-.952V10c0 2.21-3.134 4-7 4s-7-1.79-7-4V8.178c.396.37.842.688 1.306.953C5.838 10.006 7.854 10.5 10 10.5s4.162-.494 5.694-1.37ZM3 13.179V15c0 2.21 3.134 4 7 4s7-1.79 7-4v-1.822c-.396.37-.842.688-1.306.953-1.532.875-3.548 1.369-5.694 1.369s-4.162-.494-5.694-1.37A7.009 7.009 0 0 1 3 13.179Z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                    Save Story
+                  </button>
+                )}
 
-              <button
-                onClick={handleBackToHome}
-                className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.02] px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:bg-white/[0.06] hover:text-white"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="h-4 w-4"
+                <button
+                  onClick={handleBackToHome}
+                  className="flex flex-1 sm:flex-none items-center justify-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.02] px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:bg-white/[0.06] hover:text-white"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M17 10a.75.75 0 0 1-.75.75H5.612l4.158 3.96a.75.75 0 1 1-1.04 1.08l-5.5-5.25a.75.75 0 0 1 0-1.08l5.5-5.25a.75.75 0 1 1 1.04 1.08L5.612 9.25H16.25A.75.75 0 0 1 17 10Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                New Story
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="h-4 w-4"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M17 10a.75.75 0 0 1-.75.75H5.612l4.158 3.96a.75.75 0 1 1-1.04 1.08l-5.5-5.25a.75.75 0 0 1 0-1.08l5.5-5.25a.75.75 0 1 1 1.04 1.08L5.612 9.25H16.25A.75.75 0 0 1 17 10Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  New Story
+                </button>
+              </div>
             </div>
           </header>
 
           {/* Scrollable Story Area */}
-          <div className="flex-1 overflow-y-auto rounded-2xl border border-white/[0.06] bg-[#1c1f26]/60 p-6 shadow-xl backdrop-blur-md mb-6 custom-scrollbar">
+          <div className="flex-1 overflow-y-auto rounded-2xl border border-white/[0.06] bg-[#16181d]/60 p-6 shadow-xl backdrop-blur-md mb-6 custom-scrollbar">
             <div className="flex flex-col gap-6">
               {messages.map((msg, idx) => (
                 <div
@@ -400,7 +393,7 @@ export default function Home() {
 
           {/* Input Area */}
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
-            <div className="textarea-wrapper flex-1 rounded-2xl border border-white/[0.06] bg-[#1c1f26] p-1 shadow-2xl transition-all duration-300">
+            <div className="textarea-wrapper flex-1 rounded-2xl border border-white/[0.06] bg-[#16181d] p-1 shadow-2xl transition-all duration-300">
               <textarea
                 rows={2}
                 value={currentInput}

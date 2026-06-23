@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #1a1d23;
+  --background: #0d0f12;
   --foreground: #e0ddd8;
   --accent: #e8842c;
   --accent-light: #f5a623;
-  --surface: #1e2128;
-  --surface-border: rgba(255, 255, 255, 0.06);
+  --surface: #16181d;
+  --surface-border: rgba(255, 255, 255, 0.04);
 }
 
 @theme inline {
@@ -25,16 +25,14 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
-/* ── Diamond / isometric grid background ─────────────────────────── */
-.diamond-grid {
-  --line: rgba(255, 255, 255, 0.055);
-  --size: 56px;
-  background-color: #1a1d23;
+/* ── Square grid background ─────────────────────────── */
+.square-grid {
+  --line: rgba(255, 255, 255, 0.03);
+  --size: 40px;
+  background-color: var(--background);
   background-image:
-    linear-gradient(45deg, var(--line) 1px, transparent 1px),
-    linear-gradient(-45deg, var(--line) 1px, transparent 1px),
-    linear-gradient(45deg, transparent calc(var(--size) - 1px), var(--line) calc(var(--size) - 1px), var(--line) var(--size), transparent var(--size)),
-    linear-gradient(-45deg, transparent calc(var(--size) - 1px), var(--line) calc(var(--size) - 1px), var(--line) var(--size), transparent var(--size));
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
   background-size: var(--size) var(--size);
 }
 
