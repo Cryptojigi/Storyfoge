@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import FloatingBubbles from "@/components/FloatingBubbles";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,18 +27,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      <body className="square-grid min-h-screen flex flex-col bg-[#0d0f12] text-zinc-200">
+      <body className="square-grid min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300">
+        <FloatingBubbles />
         {/* Upper Banner */}
         <nav className="flex items-center justify-between px-4 sm:px-8 py-5 z-50 relative bg-transparent w-full">
           <div className="flex items-center gap-3 sm:gap-4">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-400">Storyfoge</span>
-            <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-white/[0.02] border border-white/[0.05]">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-600 dark:text-zinc-400">Storyfoge</span>
+            <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.05] dark:border-white/[0.05]">
               <div className="h-1.5 w-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse" />
-              <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-zinc-400">Synced</span>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-zinc-600 dark:text-zinc-400">Synced</span>
             </div>
           </div>
           <div>
             {/* Future components (e.g., wallet) */}
+            <div className="fixed top-5 right-5 sm:top-6 sm:right-8 z-[100]">
+              <ThemeToggle />
+            </div>
           </div>
         </nav>
         

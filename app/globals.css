@@ -1,6 +1,17 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 :root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --accent: #e8842c;
+  --accent-light: #f5a623;
+  --surface: #ffffff;
+  --surface-border: rgba(0, 0, 0, 0.08);
+}
+
+.dark {
   --background: #0d0f12;
   --foreground: #e0ddd8;
   --accent: #e8842c;
@@ -27,13 +38,17 @@ body {
 
 /* ── Square grid background ─────────────────────────── */
 .square-grid {
-  --line: rgba(255, 255, 255, 0.03);
+  --line: rgba(0, 0, 0, 0.05);
   --size: 40px;
   background-color: var(--background);
   background-image:
     linear-gradient(to right, var(--line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--line) 1px, transparent 1px);
   background-size: var(--size) var(--size);
+}
+
+.dark .square-grid {
+  --line: rgba(255, 255, 255, 0.03);
 }
 
 /* ── Warm ambient glow ── */
@@ -67,13 +82,40 @@ body {
   width: 8px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(0, 0, 0, 0.02);
   border-radius: 4px;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Floating Bubbles Animation ── */
+@keyframes float-up {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--tw-opacity, 0.4);
+  }
+  90% {
+    opacity: var(--tw-opacity, 0.4);
+  }
+  100% {
+    transform: translateY(-120vh) scale(0.5);
+    opacity: 0;
+  }
 }

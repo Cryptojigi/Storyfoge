@@ -33,8 +33,8 @@ export default function SaveReceiptModal({ isOpen, onClose, hashData }: SaveRece
   if (!isOpen || !hashData) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 animate-in fade-in duration-300">
-      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/[0.08] bg-[#16181d] p-6 shadow-2xl animate-in zoom-in-95 duration-300">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 dark:bg-black/60 backdrop-blur-sm px-4 animate-in fade-in duration-300">
+      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-black/10 dark:border-white/[0.08] bg-white dark:bg-[#16181d] p-6 shadow-2xl animate-in zoom-in-95 duration-300">
         
         {/* Glow accent */}
         <div 
@@ -50,13 +50,13 @@ export default function SaveReceiptModal({ isOpen, onClose, hashData }: SaveRece
             </svg>
           </div>
 
-          <h2 className="mb-2 text-2xl font-bold text-zinc-100">Receipt</h2>
-          <p className="mb-6 text-sm text-zinc-400">
-            Your story has been permanently saved to <span className="font-semibold text-zinc-300">0G Storage</span>.
+          <h2 className="text-xl font-bold text-black dark:text-white mb-2">Saved</h2>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-6">
+            Your story has been permanently saved to <span className="text-zinc-800 dark:text-zinc-200 font-semibold">0G Storage</span>.
           </p>
 
           {/* Hash Box */}
-          <div className="mb-6 w-full rounded-xl bg-black/40 border border-white/[0.05] p-4 flex flex-col gap-3">
+          <div className="mb-6 w-full rounded-xl bg-black/5 dark:bg-black/40 border border-black/10 dark:border-white/[0.05] p-4 flex flex-col gap-3">
             <div className="flex justify-between items-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
               <span>Root Hash</span>
             </div>
@@ -66,7 +66,7 @@ export default function SaveReceiptModal({ isOpen, onClose, hashData }: SaveRece
                   href={`https://scan-testnet.0g.ai/tx/${hashData.url}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="block w-full truncate text-sm font-medium text-orange-400 hover:text-orange-300 hover:underline underline-offset-2 transition-colors text-left"
+                  className="block w-full truncate text-sm font-medium text-orange-600 dark:text-orange-400 hover:text-orange-500 dark:hover:text-orange-300 hover:underline underline-offset-2 transition-colors text-left"
                   title="View on 0G Explorer"
                 >
                   {hashData.hash}
@@ -75,7 +75,7 @@ export default function SaveReceiptModal({ isOpen, onClose, hashData }: SaveRece
               
               <button 
                 onClick={handleCopy}
-                className="flex items-center gap-1.5 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] px-3 py-1.5 text-xs font-medium text-zinc-300 transition-colors"
+                className="flex items-center gap-1.5 rounded-lg bg-black/[0.05] dark:bg-white/[0.05] hover:bg-black/[0.1] dark:hover:bg-white/[0.1] px-3 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-colors"
               >
                 {copied ? (
                   <>
@@ -100,7 +100,7 @@ export default function SaveReceiptModal({ isOpen, onClose, hashData }: SaveRece
           {/* Close button */}
           <button
             onClick={onClose}
-            className="w-full rounded-xl bg-white/[0.05] border border-white/[0.08] py-3 text-sm font-semibold text-zinc-200 transition-all hover:bg-white/[0.08] hover:text-white"
+            className="w-full rounded-xl bg-black/[0.05] dark:bg-white/[0.05] border border-black/10 dark:border-white/[0.08] py-3 text-sm font-semibold text-zinc-800 dark:text-zinc-200 transition-all hover:bg-black/[0.1] dark:hover:bg-white/[0.08] hover:text-black dark:hover:text-white"
           >
             Close
           </button>
@@ -109,7 +109,7 @@ export default function SaveReceiptModal({ isOpen, onClose, hashData }: SaveRece
         {/* Top-right X button */}
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors"
+          className="absolute top-4 right-4 text-zinc-500 hover:text-black dark:hover:text-white transition-colors"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
