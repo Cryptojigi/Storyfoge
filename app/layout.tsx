@@ -26,7 +26,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const savedTheme = localStorage.getItem("theme");
+                const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                if (savedTheme === "light" || (!savedTheme && !prefersDark)) {
+                  document.documentElement.classList.remove("dark");
+                } else {
+                  document.documentElement.classList.add("dark");
+                }
+              } catch (_) {}
+            `,
+          }}
+        />
+      </head>
       <body className="square-grid min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300">
         <FloatingBubbles />
         {/* Upper Banner */}
